@@ -1,1 +1,0 @@
-# my_store_postgresql
