@@ -1,6 +1,6 @@
 import {ProductsService } from '../../services/productService.js';
 import { validatorHandler } from '../../middlewares/validatorHandler.js';
-import {createProductSchema, putProductSchema, patchProductSchema, getProductSchema, deleteProductSchema} from '../../schemas/productSchema.js';
+import {createProductSchema, getProductSchema, updateProductSchema} from '../../schemas/productSchema.js';
 import express from 'express';
 
 const productRouter = express.Router();
@@ -65,7 +65,7 @@ async(req, res, next)=>{
 
 productRouter.put('/:id',
 validatorHandler(getProductSchema, 'params'),
-validatorHandler(putProductSchema, 'body'),
+validatorHandler(updateProductSchema, 'body'),
 async(req, res, next)=>{
 
   try {
@@ -89,7 +89,7 @@ async(req, res, next)=>{
 
 productRouter.patch('/:id',
 validatorHandler(getProductSchema, 'params'),
-validatorHandler(patchProductSchema, 'body'),
+validatorHandler(updateProductSchema, 'body'),
 async(req, res, next)=>{
 
   try {
@@ -97,7 +97,7 @@ async(req, res, next)=>{
     const {id} = req.params;
 
     const body = req.body;
-    const productCreated = await service.patch(body, id);
+    const productCreated = await service.update(body, id);
     res.status(200).json({
       message: 'patch successfull',
       data: productCreated,
@@ -113,7 +113,7 @@ async(req, res, next)=>{
 
 
 productRouter.delete('/:id',
-validatorHandler(deleteProductSchema,'params'),
+validatorHandler(getProductSchema,'params'),
 async(req, res, next)=>{
 
   try {

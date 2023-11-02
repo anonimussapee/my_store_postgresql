@@ -1,5 +1,5 @@
 import { UsersService } from '../../services/userService.js';
-import {createUserSchema, putUserSchema, patchUserSchema, getUserSchema} from '../../schemas/userSchema.js';
+import {createUserSchema, getUserSchema, updateUserSchema} from '../../schemas/userSchema.js';
 import { validatorHandler } from '../../middlewares/validatorHandler.js';
 import express from 'express';
 
@@ -84,7 +84,7 @@ async (req, res, next) => {
 
 userRouter.put('/:id',
 validatorHandler(getUserSchema,'params'),
-validatorHandler(putUserSchema, 'body'),
+validatorHandler(updateUserSchema, 'body'),
 async(req, res, next) => {
 
   try {
@@ -92,24 +92,25 @@ async(req, res, next) => {
     const body = req.body;
 
     const { id } = req.params;
-    const userUpdate = await service.update(body, id);
+    const userPatch = await service.update(body, id);
     res.status(201).json({
       message: 'update successfull',
-      data: userUpdate,
-      id:userUpdate.id
+      data: userPatch,
+      id: userPatch.id
     });
     res.end();
 
   } catch (error) {
     next(error);
-  }
 
+  }
 
 });
 
+
 userRouter.patch('/:id',
 validatorHandler(getUserSchema,'params'),
-validatorHandler(patchUserSchema, 'body'),
+validatorHandler(updateUserSchema, 'body'),
 async(req, res, next) => {
 
   try {
@@ -117,7 +118,7 @@ async(req, res, next) => {
     const body = req.body;
 
     const { id } = req.params;
-    const userPatch = await service.patch(body, id);
+    const userPatch = await service.update(body, id);
     res.status(201).json({
       message: 'patched successfull',
       data: userPatch,
@@ -139,10 +140,9 @@ async(req, res, next) => {
   try {
 
     const { id } = req.params;
-    const userDeleted = await service.delete(id);
+    await service.delete(id);
     res.status(200).json({
       message: 'Deleted successful',
-      id:userDeleted
     });
 
   } catch (error) {

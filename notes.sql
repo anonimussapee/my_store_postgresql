@@ -1,11 +1,3 @@
-CREATE TABLE IF NOT EXISTS customers (
-  customer_id serial PRIMARY KEY ,
-  customer_name VARCHAR ( 60 ) NOT NULL,
-  customer_email VARCHAR (100),
-  customer_password VARCHAR (150) NOT NULL
-);
-
-
 CREATE TABLE IF NOT EXISTS products (
 	product_id serial PRIMARY KEY,
 	product_title VARCHAR (100) NOT NULL,

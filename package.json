@@ -19,7 +19,10 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
-    "pg": "^8.11.3"
+    "moment-timezone": "^0.5.43",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0"
   },
   "type": "module"
 }

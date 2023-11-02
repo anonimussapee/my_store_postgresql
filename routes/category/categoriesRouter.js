@@ -1,5 +1,5 @@
 import { CategoriesService } from '../../services/categoryService.js';
-import {createCategorySchema, putCategorySchema, patchCategorySchema, getCategorySchema, deleteCategorySchema} from '../../schemas/categorySchema.js';
+import {createCategorySchema, getCategorySchema,  updateCategorySchema} from '../../schemas/categorySchema.js';
 import { validatorHandler } from '../../middlewares/validatorHandler.js';
 import express from 'express';
 
@@ -30,7 +30,6 @@ categoriesRouter.get('/', async (req, res, next)=>{
 
 });
 
-// para desplegar una categoria por su id
 categoriesRouter.get('/:id',
 validatorHandler(getCategorySchema, 'params'),
 async (req, res, next)=>{
@@ -46,7 +45,7 @@ async (req, res, next)=>{
 
 });
 
-// para desplegar los productos que hay en una categoria
+// obtener los productos que hay en una categoria
 categoriesRouter.get('/:id/products',
 validatorHandler(getCategorySchema, 'params'),
 async (req, res, next)=>{
@@ -86,7 +85,7 @@ async (req, res, next)=>{
 
 categoriesRouter.put('/:id',
 validatorHandler(getCategorySchema,'params'),
-validatorHandler(putCategorySchema, 'body'),
+validatorHandler(updateCategorySchema, 'body'),
 async (req, res, next)=>{
 
   try {
@@ -106,14 +105,14 @@ async (req, res, next)=>{
 
 categoriesRouter.patch('/:id',
 validatorHandler(getCategorySchema, 'params'),
-validatorHandler(patchCategorySchema, 'body'),
+validatorHandler(updateCategorySchema, 'body'),
 async (req, res, next)=>{
 
   try {
 
     const {id} = req.params;
     const body = req.body;
-    const categorypatched = await service.patch(body, id);
+    const categorypatched = await service.update(body, id);
     res.status(201).json({
       message: 'patch successfull',
       data: categorypatched
@@ -126,7 +125,7 @@ async (req, res, next)=>{
 });
 
 categoriesRouter.delete('/:id',
-validatorHandler(deleteCategorySchema, 'params'),
+validatorHandler(getCategorySchema, 'params'),
 async (req, res, next)=>{
 
   try {

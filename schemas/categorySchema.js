@@ -7,15 +7,12 @@ const image = Joi.string();
 
 const createCategorySchema = Joi.object({
   name: name.required(),
-  image: image.required(),
+  image: image
 });
 
-const putCategorySchema = Joi.object({
-  name: name.required(),
-  image: image.required(),
-});
 
-const patchCategorySchema = Joi.object({
+
+const updateCategorySchema = Joi.object({
   name: name,
   image: image,
 });
@@ -24,8 +21,6 @@ const getCategorySchema = Joi.object({
   id: id.required()
 });
 
-const deleteCategorySchema = Joi.object({
-  id: id.required()
-});
 
-export {createCategorySchema, putCategorySchema, patchCategorySchema, getCategorySchema, deleteCategorySchema};
+
+export {createCategorySchema, updateCategorySchema, getCategorySchema};

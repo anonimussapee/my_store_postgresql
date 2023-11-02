@@ -4,7 +4,6 @@ const id = Joi.string().id();
 const name = Joi.string().min(3).max(15);
 const email = Joi.string().email();
 const password = Joi.string().min(6);
-const role = Joi.string().min(3).max(10);
 const avatar = Joi.string();
 
 
@@ -12,24 +11,17 @@ const createUserSchema = Joi.object({
   email: email.required(),
   name: name.required(),
   password: password.required(),
-  role: role.required(),
-  avatar: avatar.required(),
+  image: avatar
 });
 
-const putUserSchema = Joi.object({
-  email: email.required(),
-  name: name.required(),
-  password: password.required(),
-  role: role.required(),
-  avatar: avatar.required(),
-});
 
-const patchUserSchema = Joi.object({
+
+const updateUserSchema = Joi.object({
   email: email,
   name: name,
   password: password,
-  role: role,
-  avatar: avatar,
+  image: avatar
+
 });
 
 const getUserSchema = Joi.object({
@@ -38,4 +30,4 @@ const getUserSchema = Joi.object({
 
 
 
-export {createUserSchema, putUserSchema, patchUserSchema, getUserSchema};
+export {createUserSchema, updateUserSchema, getUserSchema};

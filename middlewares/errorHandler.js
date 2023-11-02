@@ -28,4 +28,15 @@ function boomErrorHandler (err, req, res, next){
 
 }
 
-export {logErrors, errorHandler, boomErrorHandler};
+function queryErrorHandler(err, req, res, next) {
+  if (err.parent) {
+    const { fields, parent } = err;
+    res.status(409).json({
+      field: fields,
+      message: parent.detail,
+    });
+  }
+  next(err);
+}
+
+export {queryErrorHandler, errorHandler, boomErrorHandler};

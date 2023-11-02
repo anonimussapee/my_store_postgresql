@@ -1,4 +1,4 @@
-import {logErrors, errorHandler, boomErrorHandler } from './middlewares/errorHandler.js';
+import { errorHandler, boomErrorHandler, queryErrorHandler } from './middlewares/errorHandler.js';
 import { routerApi  } from './routes/index.js';
 import cors from 'cors';
 import express from 'express';
@@ -15,8 +15,7 @@ app.on('ready', (res,req)=>{
 })
 
 routerApi(app);
-
-app.use(logErrors);
+app.use(queryErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
